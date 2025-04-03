@@ -1,9 +1,11 @@
 def calculate_average(grades):
-    result = str(round(sum(grades) / len(grades), 2))
-    if sum(grades)/len(grades) < 75:
-        result += "\nСтатус: Не успешен"
-    else:
-        result += "\nСтатус: Успешен"
+    return round(sum(grades) / len(grades), 2)
+
+
+def check_success(grades):
+    result = "Успешен"
+    if calculate_average(grades) < 75:
+        result = "Не успешен"
     return result
 
 
@@ -39,7 +41,8 @@ students = [
 
 for s in students:
     print(f"""Cтудент: {s["name"]}
-Средний балл: {calculate_average(s["grades"])}""")
+Средний балл: {calculate_average(s["grades"])}
+Статус: {check_success(s["grades"])}""")
 
 print(f"""Средний балл по всем студентам: {average_ball_of_all_students(students)}""")
 
