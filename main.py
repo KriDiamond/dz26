@@ -1,34 +1,22 @@
-def calculate_average(grades):
-    return round(sum(grades) / len(grades), 2)
-
-
-def check_success(grades):
-    result = "Успешен"
-    if calculate_average(grades) < 75:
-        result = "Не успешен"
-    return result
+def students_information(students):
+    for s in students:
+        print(f"""Cтудент: {s["name"]}
+Средний балл: {round(sum(s["grades"]) / len(s["grades"]), 2)}
+Статус: {"Не успешен" if round(sum(s["grades"]) / len(s["grades"]), 2) < 75 else "Успешен"}""")
+    return
 
 
 def average_ball_of_all_students(students):
     result = 0
-    n = 0
     for s in students:
         result += sum(s["grades"])
-        n += 1
-    result /= (3 * n)
+    result /= (3 * len(students))
     return round(result, 2)
 
 
 def del_student_with_lowest_grades(students):
-    index_counter = 0
-    index_of_weekest_student = 0
-    sum_grades_of_weekest_student = sum(students[0]["grades"])
-    for s in students:
-        if sum(s["grades"]) < sum_grades_of_weekest_student:
-            sum_grades_of_weekest_student = sum(s["grades"])
-            index_of_weekest_student = index_counter
-        index_counter +=1
-    students.pop(index_of_weekest_student)
+    weakest_student = min(students, key=lambda s: sum(s["grades"]))
+    students.remove(weakest_student)
     return
 
 
@@ -39,10 +27,7 @@ students = [
     {"name": "Draco", "grades": [60, 75, 70]}
 ]
 
-for s in students:
-    print(f"""Cтудент: {s["name"]}
-Средний балл: {calculate_average(s["grades"])}
-Статус: {check_success(s["grades"])}""")
+students_information(students)
 
 print(f"""Средний балл по всем студентам: {average_ball_of_all_students(students)}""")
 
